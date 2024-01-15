@@ -1,13 +1,15 @@
 package io.wowcollector.restserviceimpl.services.battlenet;
 
+import static io.restassured.RestAssured.given;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
+import org.junit.jupiter.api.Test;
+
 import com.google.gson.Gson;
+
 import io.quarkus.test.junit.QuarkusTest;
 import io.wowcollector.entityview.response.collection.RegionRealmResponse;
 import jakarta.ws.rs.core.Response;
-import org.junit.jupiter.api.Test;
-
-import static io.restassured.RestAssured.given;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 /**
  * Tests for {@link RestBattleNetServiceImpl}
