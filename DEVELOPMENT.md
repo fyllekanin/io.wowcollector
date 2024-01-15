@@ -18,7 +18,9 @@ As this project communicates with the Blizzard API you need to provide some cred
 
 #### Tools
 [Java 17+](https://www.java.com/sv/)
+
 [Maven](https://maven.apache.org/)
+
 [NodeJS 18+](https://nodejs.org/en)
 
 [Quarkus CLI - not mandatory](https://quarkus.io/guides/cli-tooling)
@@ -52,5 +54,3 @@ a mongodb server with:
 
 admin interface reachable at:
 [http://localhost:8081](http://localhost:8081)
-
-``
