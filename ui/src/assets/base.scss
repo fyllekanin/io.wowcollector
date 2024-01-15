@@ -1,0 +1,94 @@
+// Dark Color Palette
+$primary-color: #ff8906;
+$background-color: #0f0e17;
+$foreground-color: #1b1a27;
+$foreground-color-light: #2c2b3c;
+$text-color: #a7a9be;
+$button-text: #fffffe;
+$card-background: #0f0e17;
+$outline-color: #2e2f3e;
+$accent: #f1c40f;
+$error: #f25f4c;
+$info: #3498db;
+$success: #2ecc71;
+$warning: #f39c12;
+$tertiary: #e53170;
+$quaternary: #7f8c8d;
+
+// Named colors
+$navbar-background: $foreground-color;
+
+// Font Sizes
+$font-xx-small: 10px;
+$font-x-small: 12px;
+$font-small: 14px;
+$font-medium: 16px;
+$font-large: 18px;
+$font-heading: 24px;
+$font-heading-xl: 32px;
+
+.f-size-xxs {
+  font-size: $font-xx-small;
+}
+.f-size-xs {
+  font-size: $font-x-small;
+}
+.f-size-small {
+  font-size: $font-small;
+}
+.f-size-medium {
+  font-size: $font-medium;
+}
+.f-size-large {
+  font-size: $font-large;
+}
+.f-size-heading {
+  font-size: $font-heading;
+}
+.f-size-heading-xl {
+  font-size: $font-heading-xl;
+}
+.bold {
+  font-weight: bold;
+}
+.wrap {
+  word-wrap: break-word;
+}
+.relative {
+  position: relative;
+}
+.absolute {
+  position: absolute;
+
+  &.top {
+    top: 0;
+  }
+
+  &.bottom {
+    bottom: 0;
+  }
+}
+
+body,
+html {
+  font-size: $font-medium;
+  background-color: $background-color;
+}
+
+.card {
+  background-color: $card-background;
+  color: $text-color;
+  border: 1px solid $outline-color;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.center-container {
+  height: 100%;
+  max-width: 1200px;
+  word-wrap: break-word;
+
+  @media (max-width: 600px) {
+    gap: 0;
+  }
+}

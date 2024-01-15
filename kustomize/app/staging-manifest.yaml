@@ -1,0 +1,139 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wowcollector-staging-deployment
+  namespace: wowcollector
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: wowcollector-staging-app
+  template:
+    metadata:
+      labels:
+        app: wowcollector-staging-app
+        app/hash: {{hash}}
+    spec:
+      containers:
+        - name: wowcollector-staging-app
+          image: tovven/wowcollector:latest
+          imagePullPolicy: Always
+          readinessProbe:
+            httpGet:
+              path: /api/v1/monitoring/readiness
+              port: 8000
+            initialDelaySeconds: 10
+          env:
+            - name: QUARKUS_MONGODB_CONNECTION_STRING
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-staging-creds
+                  key: connection
+            - name: BATTLE_NET_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: blizzard-staging-creds
+                  key: clientId
+            - name: BATTLE_NET_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: blizzard-staging-creds
+                  key: secret
+            - name: APPLICATION_URL
+              value: "https://staging.wowcollector.io"
+            - name: QUARKUS_HTTP_PORT
+              value: "8000"
+            - name: WOW_MONGODB_DATABASE
+              value: wow
+            - name: QUARKUS_CACHE_CAFFEINE_EXPIRE_AFTER_WRITE
+              value: "600"
+            - name: IS_REST_APP
+              value: "true"
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-staging-creds
+                  key: secret
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wowcollector-scanner-staging-deployment
+  namespace: wowcollector
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wowcollector-scanner-staging-app
+  template:
+    metadata:
+      labels:
+        app: wowcollector-scanner-staging-app
+        app/hash: {{hash}}
+    spec:
+      containers:
+        - name: wowcollector-scanner-staging-app
+          image: tovven/wowcollector:latest
+          imagePullPolicy: Always
+          env:
+            - name: QUARKUS_MONGODB_CONNECTION_STRING
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-staging-creds
+                  key: connection
+            - name: BATTLE_NET_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: blizzard-staging-creds
+                  key: scannerClientId
+            - name: BATTLE_NET_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: blizzard-staging-creds
+                  key: scannerSecret
+            - name: WOW_MONGODB_DATABASE
+              value: wow
+            - name: IS_SCANNER_APP
+              value: "true"
+            - name: RUN_MIGRATION_SEED
+              value: "true"
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: wowcollector-staging-ingress
+  namespace: wowcollector
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  tls:
+    - hosts:
+        - staging.wowcollector.io
+      secretName: k8s-consolejs-net
+  rules:
+    - host: "staging.wowcollector.io"
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: wowcollector-staging-svc
+                port:
+                  number: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wowcollector-staging-svc
+  namespace: wowcollector
+spec:
+  selector:
+    app: wowcollector-staging-app
+  ports:
+    - name: wowcollector-staging-app
+      protocol: TCP
+      port: 80
+      targetPort: 80

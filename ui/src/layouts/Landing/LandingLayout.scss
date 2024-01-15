@@ -1,0 +1,35 @@
+.container {
+  max-width: none;
+  width: 100%;
+}
+
+.card {
+  will-change: transform, border;
+  max-width: 600px;
+  width: 100%;
+  height: 250px;
+  border: $text-color solid 1px;
+  transform: translateZ(0);
+  transition:
+    transform 0.3s ease-in-out,
+    border 0.3s ease-in-out;
+  background-color: $card-background !important;
+
+  &:hover {
+    cursor: pointer;
+    transition:
+      transform 0.3s ease-in-out,
+      border 0.3s ease-in-out;
+    transform: scale(1.01);
+    background-color: rgba($primary-color, 0.02) !important;
+    border: $primary-color solid 1px;
+  }
+}
+
+.label {
+  color: white;
+}
+
+.divider {
+  width: 100%;
+}

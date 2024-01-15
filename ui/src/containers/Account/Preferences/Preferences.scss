@@ -1,0 +1,12 @@
+.preferences {
+  display: flex;
+  gap: 2rem;
+  flex-grow: 1;
+  flex-wrap: wrap;
+}
+
+.view-style-preference,
+.tooltip-style-preference {
+  display: flex;
+  flex-direction: column;
+}

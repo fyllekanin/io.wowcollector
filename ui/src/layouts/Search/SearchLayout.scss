@@ -1,0 +1,40 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  border: $text-color solid 1px;
+
+  width: 400px;
+  @media (max-width: 400px) {
+    width: 100vw;
+  }
+}
+
+.container {
+  @media (max-width: 480px) {
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+  }
+}
+
+.card__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 0.5rem;
+
+  @media (max-width: 480px) {
+    width: 100%;
+  }
+}
+
+.search__input {
+  width: 100%;
+}
+
+.search__button {
+  margin-left: auto;
+}

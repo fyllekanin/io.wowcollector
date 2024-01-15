@@ -1,0 +1,41 @@
+.known-achievements-content,
+.unknown-achievements-content {
+  padding: 0;
+  display: grid;
+  grid-gap: 1.5rem;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 1rem;
+}
+
+.sub-cat-grid-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.achievement-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(32px, 1fr));
+  grid-gap: 0.5rem;
+}
+
+.divider {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.achievement-icon {
+  cursor: pointer;
+}
+
+.not-collected {
+  filter: contrast(0) brightness(20%);
+  transition: filter 0.5s ease;
+  &:hover {
+    transition: filter 0.5s ease;
+    filter: contrast(1) brightness(100%);
+  }
+}
